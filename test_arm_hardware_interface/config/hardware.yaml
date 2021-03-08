@@ -1,0 +1,6 @@
+test_arm:
+  hardware_interface:
+    loop_hz: 10 #hz
+    joints:
+      - link1J
+      - link2J

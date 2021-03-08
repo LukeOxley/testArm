@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="test_arm_description">
+    <link name="base_link">
+        
+<inertial>
+            <origin xyz="0.0332698865825628 0.0482236889789363 0.0900834992311434" rpy="0 0 0" />
+            <mass value="0.184077694546277" />
+            <inertia ixx="0.000131826473958922" ixy="-2.51971360360494E-37" ixz="-7.32304581377848E-39" iyy="0.000244478188069274" iyz="-2.13759152611127E-36" izz="0.000131826473958922" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/base_link.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="link1">
+        
+<inertial>
+            <origin xyz="0 0.0382556137221789 0.00943436987371768" rpy="0 0 0" />
+            <mass value="0.060045630739383" />
+            <inertia ixx="3.54448764600038E-05" ixy="-1.59585151826743E-21" ixz="-1.84695701641771E-21" iyy="1.65873749071071E-05" iyz="-2.74685897135181E-06" izz="2.48565912902681E-05" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/link1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/link1.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="link1J" type="continuous">
+        <origin xyz="0.03327 -0.090083 0.040724" rpy="1.5708 0 1.5708" />
+        <parent link="base_link" />
+        <child link="link1" />
+        <axis xyz="0 1 0" />
+    </joint>
+    <link name="link2">
+        
+<inertial>
+            <origin xyz="0.0219455069163182 -1.38777878078145E-17 0.0324091781938637" rpy="0 0 0" />
+            <mass value="0.0723174770424681" />
+            <inertia ixx="6.80371456687413E-05" ixy="-1.62567056950088E-21" ixz="-7.15896816487909E-06" iyy="7.22762806054463E-05" iyz="-7.8209244341504E-24" izz="1.15165419973145E-05" />
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/link2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://test_arm_description/meshes/link2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="link2J" type="continuous">
+        <origin xyz="0 0.05 0.0175" rpy="0 0 0" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="1 0 0" />
+    </joint>
+    
+<transmission name="trans_link1J">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="link1J">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="link1J_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_link2J">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="link2J">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="link2J_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+  <!-- Gazebo world joint -->
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="world"/>
+
+  <joint name="virtual_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+
+</robot>

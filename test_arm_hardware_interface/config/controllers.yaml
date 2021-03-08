@@ -1,0 +1,28 @@
+test_arm:
+  controller:
+    state:
+      type: joint_state_controller/JointStateController
+      publish_rate: 50
+    trajectory:
+      type: position_controllers/JointTrajectoryController
+      joints:
+        - link1J
+        - link2J
+      gains:
+        link1J: {p: 10.0, i: 0.0, d: 1.0}
+        link2J: {p: 10.0, i: 0.0, d: 1.0}
+      constraints:
+        goal_time: 10.0
+        link1J:
+          goal: 0.1
+        link2J:
+          goal: 0.1
+    position:
+      link1J:
+        type: position_controllers/JointPositionController
+        joint: link1J
+        pid: {p: 10.0, i: 0.0, d: 1.0}
+      link2J:
+        type: position_controllers/JointPositionController
+        joint: link2J
+        pid: {p: 10.0, i: 0.0, d: 1.0}

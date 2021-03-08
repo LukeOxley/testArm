@@ -1,0 +1,13 @@
+<launch>
+	<rosparam file="$(find test_arm_hardware_interface)/config/hardware.yaml" command="load"/>
+	<rosparam file="$(find test_arm_hardware_interface)/config/controllers.yaml" command="load"/>
+	<rosparam file="$(find test_arm_hardware_interface)/config/joint_limits.yaml" command="load"/>
+
+	<node name="test_arm_hardware_interface" pkg="test_arm_hardware_interface" type="test_arm_hardware_interface_node" output="screen" />
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/" 
+		args="
+			/test_arm/controller/state
+			/test_arm/controller/position/joint1J
+			/test_arm/controller/position/joint2J
+		"/>	
+</launch>
